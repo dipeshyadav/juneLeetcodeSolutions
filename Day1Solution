@@ -1,0 +1,33 @@
+// Iterative Solution
+
+public TreeNode invertTree(TreeNode root) {
+    Deque<TreeNode> s = new ArrayDeque<>();
+    if (root == null) return root;
+    s.push(root);
+
+    while (!s.isEmpty()) {
+        //visit
+        TreeNode curr = s.pop();
+        TreeNode temp = curr.left;
+        curr.left = curr.right;
+        curr.right = temp;
+
+        if (curr.left != null) s.push(curr.left);
+        if (curr.right != null) s.push(curr.right);
+    }
+    return root;
+}
+
+// Recursive Solution
+
+public TreeNode invertTree(TreeNode root) {
+    if(root == null) {
+        return root;
+    }
+    invertTree(root.left);
+    invertTree(root.right);
+    TreeNode temp = root.left;
+    root.left = root.right;
+    root.right = temp;
+    return root;
+}
